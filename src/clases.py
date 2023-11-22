@@ -35,20 +35,23 @@ def generadorPacientes(e):
 
 def SalaEsperaVORAZ(colas,tiempo,e):
     listaAtender = queue.Queue()
-    elementos=[]
+
     aux=random.randint(0,e+1)
     print(f"Consultorios disponibles= {aux}")
     if(aux == 0):
         return listaAtender
-    for i in range (len(colas)):
-        if( not colas[i].empty()):
-            elementos.append(colas[i].queue[0])
-    for i in range(aux):#aca hay un problema, me agrega lo que hay en elementos dos veces
-        if  elementos or i<len(elementos):
+   
+    for _ in range(aux):
+        elementos=[]
+        for j in range (len(colas)): #copio los elementos, (optimizable!?)
+          if( not colas[j].empty()):
+            elementos.append(colas[j].queue[0])
+
+        if  elementos:#or i<len(elementos)
             paciente= min(elementos, key=lambda x: x.tiempoRestante(tiempo))#si dos son iguales elige al que encontro primero que inevitablemente va a ser de mayor color
-            colas[paciente.color].get()#lo elimino
             listaAtender.put(paciente)#lo agrego 
-  
+            colas[paciente.color].get()#lo elimino
+    
     return listaAtender 
 
 #def SalaEsperaPD(colas):
