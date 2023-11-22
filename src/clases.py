@@ -11,32 +11,31 @@ def generadorEnfermeros(cant):
     return listaEnfermeros
 
 def generadorPacientes(e):
-    listaPacientes=[]
-    for i in range (random.randint(0,2*e)):
-        paciente = Paciente()
-        paciente.lista_sintomas = [True, True, False, False, False, False, True]#verde
-        """
-        #trabajo con las probabilidades de tener cada sintoma
-        valoresROJO = [True,False]
-        probabilidadesROJO = [0.9, 0.1]
-        paciente.lista_sintomas[0]= random.choices(valoresROJO, probabilidadesROJO, k=1)
 
-        paciente.lista_sintomas[1]= random.choice([True, False])
-        paciente.lista_sintomas[2]= random.choice([True, False])
-        paciente.lista_sintomas[3]= random.choice([True, False])
-        paciente.lista_sintomas[4]= random.choice([True, False])
-        paciente.lista_sintomas[5]= random.choice([True, False])
-        paciente.lista_sintomas[6]= random.choice([True, False])
-        """
-     
+    listaPacientes = []
+
+    for _ in range(random.randint(0, e)):
+        paciente = Paciente()     
+        lista_sintomas = []#creo una lista de sintomas para cada paciente
+
+        #trabajo con las probabilidades de la categoria ROJO
+        valoresROJO = [True, False]
+        probabilidadesROJO = [0.9, 0.1]
+        lista_sintomas.append(random.choices(valoresROJO, probabilidadesROJO, k=1)[0])
+
+        for _ in range(1, len(paciente.lista_sintomas)): #agrego el resto de los sintomas de forma aleatoria
+            lista_sintomas.append(random.choice([True, False]))
+
+        paciente.lista_sintomas = lista_sintomas
+        listaPacientes.append(paciente)
         
-        listaPacientes.append(paciente) #lo agrego a la lista final 
     return listaPacientes
+
 
 def SalaEsperaVORAZ(colas,tiempo,e):
     listaAtender = queue.Queue()
 
-    aux=random.randint(0,e+1)
+    aux=random.randint(1,2*(e+1))
     print(f"Consultorios disponibles= {aux}")
     if(aux == 0):
         return listaAtender

@@ -17,7 +17,7 @@ def main() -> None:
 
   colores = ["ROJO","NARANJA","AMARILLO","VERDE","AZUL"]
 
-  colas = [queue.Queue() for _ in range(5)]  # declaro una lista de 5 colas vacias
+  colas = [queue.Queue() for _ in range(5)]  #declaro una lista de 5 colas vacias
 
   listaAtender=[]
 
@@ -50,7 +50,7 @@ def main() -> None:
    print(f"Enfermeros disponibles: {e}")
 
    #funcion que genera de forma aleatoria pacientes, la cantidad es acorde al horario
-   listaPacientes=generadorPacientes(e)
+   listaPacientes=generadorPacientes(2*e)
    print(f"Pacientes que llegaron: {len(listaPacientes)}")
    contadorP+=len(listaPacientes)
 
