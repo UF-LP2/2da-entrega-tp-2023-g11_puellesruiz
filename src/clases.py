@@ -14,7 +14,7 @@ def generadorPacientes(e):
 
     listaPacientes = []
 
-    for _ in range(random.randint(0, e)):
+    for _ in range(random.randint(0, 2*e)):
         paciente = Paciente()     
         lista_sintomas = []#creo una lista de sintomas para cada paciente
 
@@ -41,8 +41,9 @@ def SalaEsperaVORAZ(colas,tiempo,e):
         return listaAtender
    
     for _ in range(aux):
+        
         elementos=[]
-        for j in range (len(colas)): #copio los elementos, (optimizable!?)
+        for j in range (1,len(colas)): #copio los elementos, (optimizable?, ind de n -> O(1))
           if( not colas[j].empty()):
             elementos.append(colas[j].queue[0])
 

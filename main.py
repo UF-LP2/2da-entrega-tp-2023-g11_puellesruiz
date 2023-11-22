@@ -50,7 +50,7 @@ def main() -> None:
    print(f"Enfermeros disponibles: {e}")
 
    #funcion que genera de forma aleatoria pacientes, la cantidad es acorde al horario
-   listaPacientes=generadorPacientes(2*e)
+   listaPacientes=generadorPacientes(e)
    print(f"Pacientes que llegaron: {len(listaPacientes)}")
    contadorP+=len(listaPacientes)
 
