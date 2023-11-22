@@ -12,9 +12,9 @@ def generadorEnfermeros(cant):
 
 def generadorPacientes(e):
     listaPacientes=[]
-    for i in range (random.randint(0,e)):
+    for i in range (random.randint(0,2*e)):
         paciente = Paciente()
-        paciente.lista_sintomas = [True, True, False, False, False, False, False]
+        paciente.lista_sintomas = [True, True, False, False, False, False, True]#verde
         """
         #trabajo con las probabilidades de tener cada sintoma
         valoresROJO = [True,False]
@@ -37,15 +37,18 @@ def SalaEsperaVORAZ(colas,tiempo,e):
     listaAtender = queue.Queue()
     elementos=[]
     aux=random.randint(0,e+1)
+    print(f"Consultorios disponibles= {aux}")
+    if(aux == 0):
+        return listaAtender
     for i in range (len(colas)):
         if( not colas[i].empty()):
             elementos.append(colas[i].queue[0])
-    for i in range(aux):
-        if  elementos:
+    for i in range(aux):#aca hay un problema, me agrega lo que hay en elementos dos veces
+        if  elementos or i<len(elementos):
             paciente= min(elementos, key=lambda x: x.tiempoRestante(tiempo))#si dos son iguales elige al que encontro primero que inevitablemente va a ser de mayor color
             colas[paciente.color].get()#lo elimino
             listaAtender.put(paciente)#lo agrego 
-    print(f"Consultorios disponibles= {aux}")
+  
     return listaAtender 
 
 #def SalaEsperaPD(colas):
@@ -107,8 +110,8 @@ def construir_arbol():
 
     nodo_1.izquierda = nodo_2
     nodo_1.derecha = nodo_3
-    nodo_3.izquierda = nodo_5
-    nodo_3.derecha = nodo_4
+    nodo_3.izquierda = nodo_4
+    nodo_3.derecha = nodo_5
     nodo_5.izquierda = nodo_7
     nodo_5.derecha = nodo_6
     nodo_7.izquierda = nodo_9

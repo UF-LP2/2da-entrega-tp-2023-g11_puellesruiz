@@ -83,6 +83,7 @@ def main() -> None:
 
    if not listaAtender.empty():
     while not listaAtender.empty():
+  
       atendido= listaAtender.get() #simplemente los elimina 
       print("Paciente num", atendido.numero, "atendido")
       cont+=1
