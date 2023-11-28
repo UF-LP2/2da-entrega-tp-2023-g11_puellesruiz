@@ -1,4 +1,4 @@
-import pytest
+#import pytest
 from src.clases import Paciente, evaluar_paciente, construir_arbol, mapeo_sintomas
 
 def test_TRIAGE_ROJO():

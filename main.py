@@ -1,4 +1,5 @@
 import queue
+import random
 #import time
 from src.clases import generadorEnfermeros, generadorPacientes, SalaEsperaVORAZ, construir_arbol
 
@@ -76,8 +77,10 @@ def main() -> None:
       j=0 #si llego al final de la lista de enfermeros, vuelvo a empezar
 
      k+=1
-  
-   listaAtender=SalaEsperaVORAZ(colas,tiempo,e)
+   
+   cantAtender=random.randint(1,2*(e+1))
+   print(f"Consultorios disponibles= {cantAtender}")
+   listaAtender=SalaEsperaVORAZ(colas,tiempo,cantAtender,minutos_intervalo)
    
    cont=0
 

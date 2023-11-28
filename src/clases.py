@@ -32,25 +32,27 @@ def generadorPacientes(e):
     return listaPacientes
 
 
-def SalaEsperaVORAZ(colas,tiempo,e):
+def SalaEsperaVORAZ(colas,tiempo,cant,intervalo):
     listaAtender = queue.Queue()
 
-    aux=random.randint(1,2*(e+1))
-    print(f"Consultorios disponibles= {aux}")
-    if(aux == 0):
+    if(cant == 0):
         return listaAtender
    
-    for _ in range(aux):
+    for _ in range(cant):
         
         elementos=[]
-        for j in range (1,len(colas)): #copio los elementos, (optimizable?, ind de n -> O(1))
+        for j in range (1,len(colas)): #copio los elementos, ( ind de n -> O(1))
           if( not colas[j].empty()):
-            elementos.append(colas[j].queue[0])
+            if colas[j].queue[0].tiempoRestante(tiempo)-intervalo <= 0:#si para al siguiente ciclo se le acaba el tiempo, lo atiendo ahora directamente
+             colas[j].get()#lo elimino de las colas, simulando su atencion
+
+            else:
+                elementos.append(colas[j].queue[0])
 
         if  elementos:#or i<len(elementos)
             paciente= min(elementos, key=lambda x: x.tiempoRestante(tiempo))#si dos son iguales elige al que encontro primero que inevitablemente va a ser de mayor color
-            listaAtender.put(paciente)#lo agrego 
-            colas[paciente.color].get()#lo elimino
+            listaAtender.put(paciente)#lo agrego a la lista final
+            colas[paciente.color].get()#lo elimino de las colas
     
     return listaAtender 
 
@@ -82,7 +84,7 @@ class Paciente:
              self.tiempoAsignado = 240
 
     def tiempoRestante(self,tiempo):
-        return self.tiempoAsignado-(tiempo-self.tiempoIngreso)
+        return self.tiempoAsignado-(tiempo-self.tiempoIngreso)#tiempo que se le asigno en el momento que ingreso menos el transcurrido
    
 class Nodo:
     def __init__(self, sintoma, color=None, izquierda=None, derecha=None):
